@@ -1,0 +1,5 @@
+{
+  "name": "TalentScout AI",
+  "description": "An intelligent recruiter dashboard that uses Gemini AI to analyze, rank, and visualize top candidates based on job requirements.",
+  "requestFramePermissions": []
+}
