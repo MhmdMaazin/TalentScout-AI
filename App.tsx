@@ -75,23 +75,30 @@ const App: React.FC = () => {
   return (
     <div className="min-h-screen bg-slate-50 text-slate-900 font-sans">
       {/* Navbar */}
-      <nav className={`fixed w-full z-50 top-0 left-0 px-6 py-4 flex justify-between items-center border-b transition-all duration-300 ${state.view === 'landing' ? 'bg-white/80 border-transparent backdrop-blur-sm' : 'bg-white border-gray-100 shadow-sm'}`}>
-        <div className="flex items-center gap-2 cursor-pointer" onClick={() => handleReset()}>
-          <span className="text-2xl">⚡</span>
-          <span className="font-bold text-xl tracking-tight text-indigo-900">TalentScout AI</span>
-        </div>
-        <div>
-           {state.view !== 'landing' && (
-             <span className="text-xs font-medium text-gray-500 bg-gray-100 px-3 py-1 rounded-full border border-gray-200">
-               Artificial Intelligence (AI) Active
-             </span>
-           )}
-           {state.view === 'landing' && (
-             <button onClick={handleStart} className="text-sm font-semibold text-indigo-600 hover:text-indigo-800">
-               Get Started
-             </button>
-           )}
-        </div>
+      <nav className={`fixed top-4 md:top-8 left-1/2 -translate-x-1/2 z-50 transition-all duration-300 ${state.view === 'landing' ? 'w-11/12 md:w-11/12 md:max-w-3xl px-4 md:px-0' : 'w-full px-8'}`}>
+        {state.view === 'landing' ? (
+          <div className="flex items-center justify-between px-4 md:px-8 h-14 md:h-16 rounded-full bg-white/10 backdrop-blur-xl border border-white/20 shadow-2xl gap-2 md:gap-8">
+            <div className="cursor-pointer hover:opacity-80 transition-opacity flex-shrink-0" onClick={() => handleReset()}>
+              <img src="/Assets/Talentscout AI logo.png" alt="TalentScout AI" className="h-20 md:h-28 w-auto object-contain" />
+            </div>
+            {/* <div className="hidden md:flex items-center gap-8">
+              <a href="#features" className="text-sm font-medium text-white/80 hover:text-white transition-colors">Features</a>
+              <a href="#how-it-works" className="text-sm font-medium text-white/80 hover:text-white transition-colors">How it works</a>
+            </div> */}
+            <button onClick={handleStart} className="text-xs md:text-sm font-bold text-white bg-gradient-to-r from-orange-500 to-orange-600 px-4 md:px-6 py-2 md:py-2.5 rounded-lg hover:shadow-lg hover:shadow-orange-500/30 transition-all transform hover:-translate-y-0.5 active:scale-95 flex-shrink-0">
+              Get Started
+            </button>
+          </div>
+        ) : (
+          <div className="w-full flex justify-between items-center px-8 h-20">
+            <div className="cursor-pointer hover:opacity-80 transition-opacity" onClick={() => handleReset()}>
+              <img src="/Assets/Talentscout AI logo.png" alt="TalentScout AI" className="h-32 w-auto object-contain" />
+            </div>
+            <span className="text-xs font-semibold text-orange-600 bg-orange-50 px-4 py-2 rounded-full border border-orange-200 shadow-sm">
+              ⚡ Artificial Intelligence (AI) Active
+            </span>
+          </div>
+        )}
       </nav>
 
       <main className={`${state.view === 'landing' ? '' : 'pt-20'}`}>
