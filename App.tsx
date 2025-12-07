@@ -5,6 +5,8 @@ import JobSetup from './components/JobSetup';
 import Results from './components/Results';
 import { analyzeCandidates } from './services/geminiService';
 import { motion, AnimatePresence } from 'framer-motion';
+import { DistortedGlass } from './components/ui/distorted-glass';
+import { LiquidButton } from './components/animate-ui/primitives/buttons/liquid';
 
 const App: React.FC = () => {
   const [state, setState] = useState<AppState>({
@@ -77,17 +79,27 @@ const App: React.FC = () => {
       {/* Navbar */}
       <nav className={`fixed top-4 md:top-8 left-1/2 -translate-x-1/2 z-50 transition-all duration-300 ${state.view === 'landing' ? 'w-11/12 md:w-11/12 md:max-w-3xl px-4 md:px-0' : 'w-full px-8'}`}>
         {state.view === 'landing' ? (
-          <div className="flex items-center justify-between px-4 md:px-8 h-14 md:h-16 rounded-full bg-white/10 backdrop-blur-xl border border-white/20 shadow-2xl gap-2 md:gap-8">
-            <div className="cursor-pointer hover:opacity-80 transition-opacity flex-shrink-0" onClick={() => handleReset()}>
-              <img src="/Assets/Talentscout AI logo.png" alt="TalentScout AI" className="h-20 md:h-28 w-auto object-contain" />
+          <div className="relative rounded-full overflow-hidden">
+            <DistortedGlass className="!relative !h-14 md:!h-16 !w-full !block !rounded-full" />
+            <div className="absolute inset-0 z-10 flex items-center justify-between px-4 md:px-8 rounded-full gap-2 md:gap-8">
+              <div className="cursor-pointer hover:opacity-80 transition-opacity flex-shrink-0" onClick={() => handleReset()}>
+                <img src="/Assets/Talentscout AI logo.png" alt="TalentScout AI" className="h-20 md:h-28 w-auto object-contain" />
+              </div>
+              {/* <div className="hidden md:flex items-center gap-8">
+                <a href="#features" className="text-sm font-medium text-white/80 hover:text-white transition-colors">Features</a>
+                <a href="#how-it-works" className="text-sm font-medium text-white/80 hover:text-white transition-colors">How it works</a>
+              </div> */}
+              <LiquidButton 
+                onClick={handleStart} 
+                delay="0.3s"
+                fillHeight="3px"
+                hoverScale={1.05}
+                tapScale={0.95}
+                className="text-xs md:text-sm font-bold text-white px-4 md:px-6 py-2 md:py-2.5 rounded-lg flex-shrink-0 border-2 border-orange-500 [--liquid-button-color:#f97316] [--liquid-button-background-color:transparent] hover:text-black"
+              >
+                Get Started
+              </LiquidButton>
             </div>
-            {/* <div className="hidden md:flex items-center gap-8">
-              <a href="#features" className="text-sm font-medium text-white/80 hover:text-white transition-colors">Features</a>
-              <a href="#how-it-works" className="text-sm font-medium text-white/80 hover:text-white transition-colors">How it works</a>
-            </div> */}
-            <button onClick={handleStart} className="text-xs md:text-sm font-bold text-white bg-gradient-to-r from-orange-500 to-orange-600 px-4 md:px-6 py-2 md:py-2.5 rounded-lg hover:shadow-lg hover:shadow-orange-500/30 transition-all transform hover:-translate-y-0.5 active:scale-95 flex-shrink-0">
-              Get Started
-            </button>
           </div>
         ) : (
           <div className="w-full flex justify-between items-center px-8 h-20">

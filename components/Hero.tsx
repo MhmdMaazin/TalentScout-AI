@@ -4,6 +4,7 @@ import LightPillar from './LightPillar';
 import ElectricBorder from './ElectricBorder';
 import { FaBrain, FaEye, FaEyeSlash, FaClipboardList, FaEnvelope } from 'react-icons/fa';
 import { LuSwords } from "react-icons/lu";
+import { LiquidButton } from './animate-ui/primitives/buttons/liquid';
 
 interface HeroProps {
   onStart: () => void;
@@ -122,16 +123,29 @@ const Hero: React.FC<HeroProps> = ({ onStart }) => {
                         Stop manually reviewing hundreds of PDF resumes. Our intelligent agent analyzes, ranks, and visualizes candidate potential in seconds using advanced multimodal AI.
                     </motion.p>
                     <motion.div variants={fadeInUp} className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
-                        <button 
+                        <LiquidButton 
                             onClick={onStart}
-                            className="px-8 py-4 bg-orange-500 text-white rounded-xl font-bold text-lg shadow-lg hover:bg-orange-600 hover:shadow-orange-500/30 transition-all transform hover:-translate-y-1 active:scale-95 flex items-center justify-center gap-2"
+                            delay="0.3s"
+                            fillHeight="3px"
+                            hoverScale={1.05}
+                            tapScale={0.95}
+                            className="px-8 py-4 text-white rounded-xl font-bold text-lg shadow-lg flex items-center justify-center gap-2 border-2 border-orange-500 [--liquid-button-color:#f97316] [--liquid-button-background-color:transparent] hover:text-black"
                         >
                             Start Analyzing Now
                             <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" /></svg>
-                        </button>
-                        <a href="#how-it-works" className="px-8 py-4 bg-white/10 text-white border border-white/30 rounded-xl font-bold text-lg hover:bg-white/20 transition-all flex items-center justify-center">
-                            Learn How
-                        </a>
+                        </LiquidButton>
+                        <LiquidButton 
+                            asChild
+                            delay="0.3s"
+                            fillHeight="3px"
+                            hoverScale={1.05}
+                            tapScale={0.95}
+                            className="px-8 py-4 text-white border-2 border-white/50 rounded-xl font-bold text-lg flex items-center justify-center [--liquid-button-color:#ffffff] [--liquid-button-background-color:transparent] hover:text-black"
+                        >
+                            <a href="#how-it-works">
+                                Learn How
+                            </a>
+                        </LiquidButton>
                     </motion.div>
                 </motion.div>
 
@@ -216,120 +230,176 @@ const Hero: React.FC<HeroProps> = ({ onStart }) => {
         </div> */}
 
         {/* FEATURES GRID */}
-        <section className="py-24 bg-white/10 backdrop-blur-md" id="features">
-            <div className="container mx-auto px-6">
-                <div className="text-center max-w-3xl mx-auto mb-20">
-                    <h2 className="text-orange-500 font-semibold tracking-wide uppercase mb-3">Capabilities</h2>
-                    <h3 className="text-3xl md:text-4xl font-bold text-black mb-6">More than just keyword matching.</h3>
-                    <p className="text-lg text-black/80">Our AI understands context, visual layouts, and nuanced job requirements, ensuring you never miss a hidden gem.</p>
-                </div>
-
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                    {features.map((feature, i) => (
-                        <ElectricBorder
-                            key={i}
-                            color="#f7911d"
-                            speed={1}
-                            chaos={0.5}
-                            thickness={2}
-                            style={{ borderRadius: 24 }}
-                        >
-                            <motion.div 
-                                initial={{ opacity: 0, y: 20 }}
-                                whileInView={{ opacity: 1, y: 0 }}
-                                viewport={{ once: true }}
-                                transition={{ delay: i * 0.1 }}
-                                className="group h-full p-8 rounded-3xl bg-white/10 backdrop-blur-md hover:bg-white/20 transition-all duration-300 hover:-translate-y-1 border border-white/20"
-                            >
-                                <div className={`w-20 h-20 rounded-2xl flex items-center justify-center text-4xl mb-6 ${feature.color} group-hover:scale-110 transition-transform`}>
-                                    <feature.icon />
-                                </div>
-                                <h4 className="text-xl font-bold text-slate-900 mb-3">{feature.title}</h4>
-                                <p className="text-slate-600 leading-relaxed">{feature.desc}</p>
-                            </motion.div>
-                        </ElectricBorder>
-                    ))}
-                </div>
-            </div>
-        </section>
-
-        {/* HOW IT WORKS */}
-        <section className="py-24 bg-slate-900 text-white overflow-hidden relative" id="how-it-works">
-            <div className="absolute top-0 left-0 w-full h-full overflow-hidden z-0 opacity-20">
-                <div className="absolute top-1/2 left-1/4 w-96 h-96 bg-indigo-500 rounded-full mix-blend-overlay filter blur-3xl"></div>
-                <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-purple-500 rounded-full mix-blend-overlay filter blur-3xl"></div>
+        <section className="py-32 bg-gradient-to-b from-slate-900 via-slate-800 to-black relative overflow-hidden" id="features">
+            {/* Animated background elements */}
+            <div className="absolute inset-0 overflow-hidden">
+              <div className="absolute top-20 left-10 w-72 h-72 bg-orange-500/10 rounded-full mix-blend-screen filter blur-3xl animate-pulse"></div>
+              <div className="absolute bottom-20 right-10 w-72 h-72 bg-blue-500/10 rounded-full mix-blend-screen filter blur-3xl animate-pulse" style={{ animationDelay: '1s' }}></div>
             </div>
 
             <div className="container mx-auto px-6 relative z-10">
-                <div className="text-center mb-20">
-                    <h2 className="text-3xl md:text-5xl font-bold mb-6">How it works</h2>
-                    <p className="text-slate-400 max-w-2xl mx-auto text-lg">Simplify your hiring pipeline in three simple steps.</p>
-                </div>
+                <motion.div 
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    className="text-center max-w-3xl mx-auto mb-20"
+                >
+                    <h2 className="text-orange-500 font-semibold tracking-widest uppercase mb-4 text-sm">Capabilities</h2>
+                    <h3 className="text-4xl md:text-5xl font-bold text-white mb-6">More than just keyword matching.</h3>
+                    <p className="text-lg text-gray-300">Our AI understands context, visual layouts, and nuanced job requirements, ensuring you never miss a hidden gem.</p>
+                </motion.div>
 
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-12 relative">
-                    {/* Connecting Line (Desktop) */}
-                    <div className="hidden md:block absolute top-12 left-0 w-full h-0.5 bg-gradient-to-r from-transparent via-indigo-500 to-transparent opacity-30"></div>
-
-                    {[
-                        { step: "01", title: "Upload CVs", desc: "Drag & drop up to 10 PDF or Image resumes at once. We handle extraction securely." },
-                        { step: "02", title: "Define Role", desc: "Set job title, description, skills, and adjust importance weights for ranking." },
-                        { step: "03", title: "Get Results", desc: "Receive an AI-ranked list with detailed reasoning, pros, cons, and match scores." }
-                    ].map((step, i) => (
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    {features.map((feature, i) => (
                         <motion.div 
                             key={i}
                             initial={{ opacity: 0, y: 30 }}
                             whileInView={{ opacity: 1, y: 0 }}
                             viewport={{ once: true }}
-                            transition={{ delay: i * 0.2 }}
-                            className="relative text-center"
+                            transition={{ delay: i * 0.1, duration: 0.6 }}
+                            whileHover={{ y: -8, transition: { duration: 0.3 } }}
+                            className="group relative p-8 rounded-2xl bg-gradient-to-br from-white/5 to-white/[0.02] backdrop-blur-xl border border-white/10 hover:border-orange-500/50 transition-all duration-300 overflow-hidden"
                         >
-                            <div className="w-24 h-24 mx-auto bg-slate-800 rounded-full border-4 border-slate-700 flex items-center justify-center text-3xl font-bold text-indigo-400 mb-6 relative z-10 shadow-lg shadow-indigo-900/50">
-                                {step.step}
+                            {/* Gradient overlay on hover */}
+                            <div className="absolute inset-0 bg-gradient-to-br from-orange-500/0 to-blue-500/0 group-hover:from-orange-500/10 group-hover:to-blue-500/10 transition-all duration-300 rounded-2xl"></div>
+                            
+                            <div className="relative z-10">
+                                <motion.div 
+                                    whileHover={{ scale: 1.15, rotate: 5 }}
+                                    transition={{ type: "spring", stiffness: 400, damping: 10 }}
+                                    className={`w-16 h-16 rounded-xl flex items-center justify-center text-3xl mb-6 bg-gradient-to-br ${feature.color === 'text-blue-500' ? 'from-blue-500/20 to-blue-600/20' : feature.color === 'text-purple-500' ? 'from-purple-500/20 to-purple-600/20' : feature.color === 'text-orange-500' ? 'from-orange-500/20 to-orange-600/20' : feature.color === 'text-teal-500' ? 'from-teal-500/20 to-teal-600/20' : feature.color === 'text-pink-500' ? 'from-pink-500/20 to-pink-600/20' : 'from-indigo-500/20 to-indigo-600/20'}`}
+                                >
+                                    <feature.icon className={feature.color} />
+                                </motion.div>
+                                <h4 className="text-xl font-bold text-white mb-3 group-hover:text-orange-400 transition-colors">{feature.title}</h4>
+                                <p className="text-gray-400 leading-relaxed text-sm">{feature.desc}</p>
                             </div>
-                            <h3 className="text-2xl font-bold mb-3">{step.title}</h3>
-                            <p className="text-slate-400 leading-relaxed max-w-xs mx-auto">{step.desc}</p>
                         </motion.div>
                     ))}
                 </div>
             </div>
         </section>
 
+        {/* HOW IT WORKS */}
+        <section className="py-32 bg-gradient-to-b from-black via-slate-900 to-black text-white overflow-hidden relative" id="how-it-works">
+            <div className="absolute inset-0 overflow-hidden">
+              <div className="absolute top-1/3 -left-40 w-80 h-80 bg-blue-500/5 rounded-full mix-blend-screen filter blur-3xl"></div>
+              <div className="absolute bottom-1/3 -right-40 w-80 h-80 bg-orange-500/5 rounded-full mix-blend-screen filter blur-3xl"></div>
+            </div>
+
+            <div className="container mx-auto px-6 relative z-10">
+                <motion.div 
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    className="text-center mb-20"
+                >
+                    <h2 className="text-4xl md:text-5xl font-bold mb-6 text-white">How it works</h2>
+                    <p className="text-gray-400 max-w-2xl mx-auto text-lg">Simplify your hiring pipeline in three simple steps.</p>
+                </motion.div>
+
+                <div className="relative">
+                    {/* Connecting Line (Desktop) - Behind circles */}
+                    <div className="hidden md:block absolute top-14 left-1/2 -translate-x-1/2 w-3/4 h-1 bg-gradient-to-r from-transparent via-orange-500/50 to-transparent -z-10"></div>
+
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+                        {[
+                            { step: "01", title: "Upload CVs", desc: "Drag & drop up to 10 PDF or Image resumes at once. We handle extraction securely.", icon: "📤" },
+                            { step: "02", title: "Define Role", desc: "Set job title, description, skills, and adjust importance weights for ranking.", icon: "⚙️" },
+                            { step: "03", title: "Get Results", desc: "Receive an AI-ranked list with detailed reasoning, pros, cons, and match scores.", icon: "✨" }
+                        ].map((step, i) => (
+                            <motion.div 
+                                key={i}
+                                initial={{ opacity: 0, y: 30 }}
+                                whileInView={{ opacity: 1, y: 0 }}
+                                viewport={{ once: true }}
+                                transition={{ delay: i * 0.15, duration: 0.6 }}
+                                className="relative text-center flex flex-col items-center"
+                            >
+                                <motion.div 
+                                    whileHover={{ scale: 1.1 }}
+                                    className="w-28 h-28 bg-slate-900 rounded-full border-2 border-orange-500/50 flex items-center justify-center text-4xl font-bold text-orange-400 mb-8 relative z-20 shadow-lg shadow-orange-500/20"
+                                    style={{
+                                        background: 'radial-gradient(circle, rgba(15,23,42,1) 0%, rgba(15,23,42,0.95) 100%)'
+                                    }}
+                                >
+                                    {step.step}
+                                </motion.div>
+                                <h3 className="text-2xl font-bold mb-3 text-white">{step.title}</h3>
+                                <p className="text-gray-400 leading-relaxed max-w-xs">{step.desc}</p>
+                            </motion.div>
+                        ))}
+                    </div>
+                </div>
+            </div>
+        </section>
+
         {/* CTA BOTTOM */}
-        <section className="py-24 bg-gradient-to-br from-orange-500 to-blue-600 text-white text-center relative overflow-hidden">
-             {/* Decorative circles */}
-             <div className="absolute top-0 left-0 w-64 h-64 bg-white opacity-10 rounded-full -translate-x-1/2 -translate-y-1/2"></div>
-             <div className="absolute bottom-0 right-0 w-80 h-80 bg-white opacity-10 rounded-full translate-x-1/3 translate-y-1/3"></div>
+        <section className="py-32 bg-gradient-to-br from-orange-600 via-orange-500 to-blue-600 text-white text-center relative overflow-hidden">
+             {/* Animated decorative elements */}
+             <div className="absolute top-0 left-0 w-96 h-96 bg-white/10 rounded-full -translate-x-1/2 -translate-y-1/2 blur-3xl animate-pulse"></div>
+             <div className="absolute bottom-0 right-0 w-96 h-96 bg-white/10 rounded-full translate-x-1/3 translate-y-1/3 blur-3xl animate-pulse" style={{ animationDelay: '1s' }}></div>
 
             <div className="container mx-auto px-6 relative z-10">
                 <motion.div
-                    initial={{ opacity: 0, scale: 0.9 }}
-                    whileInView={{ opacity: 1, scale: 1 }}
+                    initial={{ opacity: 0, scale: 0.8, y: 20 }}
+                    whileInView={{ opacity: 1, scale: 1, y: 0 }}
                     viewport={{ once: true }}
+                    transition={{ duration: 0.8 }}
                 >
-                    <h2 className="text-3xl md:text-5xl font-bold mb-8">Ready to find your next unicorn?</h2>
-                    <p className="text-orange-100 text-xl mb-10 max-w-2xl mx-auto">Join the future of recruitment. Fast, unbiased, and incredibly accurate analysis using Google's latest Gemini AI models.</p>
-                    <button 
+                    <h2 className="text-4xl md:text-6xl font-bold mb-8">Ready to find your next unicorn?</h2>
+                    <p className="text-white/90 text-xl mb-12 max-w-2xl mx-auto leading-relaxed">Join the future of recruitment. Fast, unbiased, and incredibly accurate analysis using Google's latest Gemini AI models.</p>
+                    <LiquidButton 
                         onClick={onStart}
-                        className="px-10 py-5 bg-white text-orange-600 rounded-full font-bold text-lg shadow-2xl hover:bg-slate-50 hover:scale-105 transition-all"
+                        delay="0.3s"
+                        fillHeight="3px"
+                        hoverScale={1.05}
+                        tapScale={0.95}
+                        className="px-12 py-4 text-white rounded-full font-bold text-lg shadow-lg border-2 border-white [--liquid-button-color:#f97316] [--liquid-button-background-color:transparent] hover:text-black"
                     >
                         Launch TalentScout AI
-                    </button>
+                    </LiquidButton>
                 </motion.div>
             </div>
         </section>
 
         {/* FOOTER */}
-        <footer className="bg-slate-50 py-12 border-t border-slate-200">
-            <div className="container mx-auto px-6 flex flex-col md:flex-row justify-between items-center opacity-60">
-                <div className="mb-4 md:mb-0">
-                    <p className="text-sm font-semibold text-slate-900">TalentScout AI</p>
-                    <p className="text-xs mt-1">© 2024. All rights reserved.</p>
-                </div>
-                <div className="flex gap-6">
-                    <a href="#" className="text-sm hover:text-indigo-600 transition-colors">Privacy Policy</a>
-                    <a href="#" className="text-sm hover:text-indigo-600 transition-colors">Terms of Service</a>
-                    <a href="#" className="text-sm hover:text-indigo-600 transition-colors">Contact Support</a>
-                </div>
+        <footer className="bg-black border-t border-white/10 py-16">
+            <div className="container mx-auto px-6">
+                <motion.div 
+                    initial={{ opacity: 0 }}
+                    whileInView={{ opacity: 1 }}
+                    viewport={{ once: true }}
+                    className="flex flex-col md:flex-row justify-between items-center"
+                >
+                    <div className="mb-8 md:mb-0">
+                        <p className="text-lg font-bold text-white">TalentScout AI</p>
+                        <p className="text-sm text-gray-400 mt-2">© 2024. All rights reserved.</p>
+                    </div>
+                    <div className="flex gap-8">
+                        <motion.a 
+                            href="#" 
+                            whileHover={{ color: "#f7911d" }}
+                            className="text-sm text-gray-400 hover:text-orange-500 transition-colors"
+                        >
+                            Privacy Policy
+                        </motion.a>
+                        <motion.a 
+                            href="#" 
+                            whileHover={{ color: "#f7911d" }}
+                            className="text-sm text-gray-400 hover:text-orange-500 transition-colors"
+                        >
+                            Terms of Service
+                        </motion.a>
+                        <motion.a 
+                            href="#" 
+                            whileHover={{ color: "#f7911d" }}
+                            className="text-sm text-gray-400 hover:text-orange-500 transition-colors"
+                        >
+                            Contact Support
+                        </motion.a>
+                    </div>
+                </motion.div>
             </div>
         </footer>
     </div>
