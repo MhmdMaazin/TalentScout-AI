@@ -310,7 +310,7 @@ const Results: React.FC<ResultsProps> = ({ results, candidates, jobConfig, onRes
         <div className="space-y-4">
           <h3 className="text-lg font-semibold text-gray-900">Detailed Breakdown</h3>
           <p className="text-xs text-gray-500 -mt-3 mb-2">Check box to compare. Click card to expand.</p>
-          <div className="space-y-4 max-h-[800px] overflow-y-auto pr-2 custom-scrollbar">
+          <div className="space-y-4">
             {sortedResults.map((result, idx) => (
               <motion.div
                 key={result.candidateId}
