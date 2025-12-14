@@ -89,18 +89,19 @@ const JobSetup: React.FC<JobSetupProps> = ({ onAnalyze, isProcessing, initialCon
   };
 
   return (
-    <div className="max-w-4xl mx-auto py-12 px-4 sm:px-6 relative">
-      <div className="mb-8">
-        <div className="flex items-center justify-between mb-4">
-          <h2 className="text-2xl font-bold text-gray-900">
-            {step === 1 ? 'Define Role Requirements' : 'Upload Resumes'}
-          </h2>
-          <div className="flex gap-2">
-            <div className={`h-2 w-12 rounded-full transition-colors ${step >= 1 ? 'bg-indigo-600' : 'bg-gray-200'}`} />
-            <div className={`h-2 w-12 rounded-full transition-colors ${step >= 2 ? 'bg-indigo-600' : 'bg-gray-200'}`} />
+    <div className="min-h-screen bg-gradient-to-b from-slate-900 via-slate-800 to-black">
+      <div className="max-w-4xl mx-auto py-12 px-4 sm:px-6 relative">
+        <div className="mb-8">
+          <div className="flex items-center justify-between mb-4">
+            <h2 className="text-2xl font-bold text-white">
+              {step === 1 ? 'Define Role Requirements' : 'Upload Resumes'}
+            </h2>
+            <div className="flex gap-2">
+              <div className={`h-2 w-12 rounded-full transition-colors ${step >= 1 ? 'bg-orange-500' : 'bg-slate-600'}`} />
+              <div className={`h-2 w-12 rounded-full transition-colors ${step >= 2 ? 'bg-orange-500' : 'bg-slate-600'}`} />
+            </div>
           </div>
         </div>
-      </div>
 
       <AnimatePresence mode="wait">
         {step === 1 ? (
@@ -109,27 +110,27 @@ const JobSetup: React.FC<JobSetupProps> = ({ onAnalyze, isProcessing, initialCon
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
             exit={{ opacity: 0, x: 20 }}
-            className="space-y-6 bg-white p-8 rounded-2xl shadow-sm border border-gray-100"
+            className="space-y-6 bg-slate-800/50 backdrop-blur-xl p-8 rounded-2xl shadow-lg border border-white/10"
           >
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div>
-                  <label className="block text-sm font-medium text-gray-700">Job Title</label>
+                  <label className="block text-sm font-medium text-white">Job Title</label>
                   <input
                     type="text"
-                    className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm p-3 border"
+                    className="mt-1 block w-full rounded-md bg-slate-700/50 border border-slate-600 text-white placeholder-slate-400 shadow-sm focus:border-orange-500 focus:ring-orange-500 sm:text-sm p-3"
                     placeholder="e.g. Senior React Engineer"
                     value={jobConfig.title}
                     onChange={(e) => setJobConfig({ ...jobConfig, title: e.target.value })}
                   />
                 </div>
                  <div>
-                    <label className="block text-sm font-medium text-gray-700">Minimum Experience: {jobConfig.experienceLevel} Years</label>
+                    <label className="block text-sm font-medium text-white">Minimum Experience: {jobConfig.experienceLevel} Years</label>
                     <input
                         type="range"
                         min="0"
                         max="15"
                         step="1"
-                        className="w-full mt-4 accent-indigo-600"
+                        className="w-full mt-4 accent-orange-500"
                         value={jobConfig.experienceLevel}
                         onChange={(e) => setJobConfig({ ...jobConfig, experienceLevel: parseInt(e.target.value) })}
                     />
@@ -137,10 +138,10 @@ const JobSetup: React.FC<JobSetupProps> = ({ onAnalyze, isProcessing, initialCon
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-gray-700">Job Description</label>
+              <label className="block text-sm font-medium text-white">Job Description</label>
               <textarea
                 rows={4}
-                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm p-3 border"
+                className="mt-1 block w-full rounded-md bg-slate-700/50 border border-slate-600 text-white placeholder-slate-400 shadow-sm focus:border-orange-500 focus:ring-orange-500 sm:text-sm p-3"
                 placeholder="Paste the full job description here..."
                 value={jobConfig.description}
                 onChange={(e) => setJobConfig({ ...jobConfig, description: e.target.value })}
@@ -148,10 +149,10 @@ const JobSetup: React.FC<JobSetupProps> = ({ onAnalyze, isProcessing, initialCon
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-gray-700">Required Skills</label>
+              <label className="block text-sm font-medium text-white">Required Skills</label>
               <input
                 type="text"
-                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm p-3 border"
+                className="mt-1 block w-full rounded-md bg-slate-700/50 border border-slate-600 text-white placeholder-slate-400 shadow-sm focus:border-orange-500 focus:ring-orange-500 sm:text-sm p-3"
                 placeholder="Type a skill and hit Enter"
                 value={skillInput}
                 onChange={(e) => setSkillInput(e.target.value)}
@@ -159,38 +160,38 @@ const JobSetup: React.FC<JobSetupProps> = ({ onAnalyze, isProcessing, initialCon
               />
               <div className="mt-3 flex flex-wrap gap-2">
                 {jobConfig.requiredSkills.map(skill => (
-                  <span key={skill} className="inline-flex items-center gap-1 rounded-full bg-indigo-50 px-3 py-1 text-sm font-medium text-indigo-700 ring-1 ring-inset ring-indigo-600/10">
+                  <span key={skill} className="inline-flex items-center gap-1 rounded-full bg-orange-500/20 px-3 py-1 text-sm font-medium text-orange-200 ring-1 ring-inset ring-orange-500/30">
                     {skill}
-                    <button onClick={() => removeSkill(skill)} className="text-indigo-600 hover:text-indigo-800">×</button>
+                    <button onClick={() => removeSkill(skill)} className="text-orange-300 hover:text-orange-100">×</button>
                   </span>
                 ))}
               </div>
             </div>
 
             {/* Weights Section */}
-            <div className="bg-gray-50 p-4 rounded-xl border border-gray-200">
-                <h3 className="text-sm font-semibold text-gray-900 mb-4">Analysis Weights (Total 100%)</h3>
+            <div className="bg-slate-700/30 p-4 rounded-xl border border-slate-600/50">
+                <h3 className="text-sm font-semibold text-white mb-4">Analysis Weights (Total 100%)</h3>
                 <div className="space-y-4">
                     <div>
-                        <div className="flex justify-between text-xs mb-1">
+                        <div className="flex justify-between text-xs mb-1 text-slate-300">
                             <span>Skills Match</span>
                             <span className="font-semibold">{jobConfig.weights.skills}%</span>
                         </div>
-                        <input type="range" className="w-full accent-indigo-600" min="0" max="100" value={jobConfig.weights.skills} onChange={(e) => setJobConfig({...jobConfig, weights: {...jobConfig.weights, skills: parseInt(e.target.value)}})} />
+                        <input type="range" className="w-full accent-orange-500" min="0" max="100" value={jobConfig.weights.skills} onChange={(e) => setJobConfig({...jobConfig, weights: {...jobConfig.weights, skills: parseInt(e.target.value)}})} />
                     </div>
                     <div>
-                        <div className="flex justify-between text-xs mb-1">
+                        <div className="flex justify-between text-xs mb-1 text-slate-300">
                             <span>Experience</span>
                             <span className="font-semibold">{jobConfig.weights.experience}%</span>
                         </div>
-                        <input type="range" className="w-full accent-indigo-600" min="0" max="100" value={jobConfig.weights.experience} onChange={(e) => setJobConfig({...jobConfig, weights: {...jobConfig.weights, experience: parseInt(e.target.value)}})} />
+                        <input type="range" className="w-full accent-orange-500" min="0" max="100" value={jobConfig.weights.experience} onChange={(e) => setJobConfig({...jobConfig, weights: {...jobConfig.weights, experience: parseInt(e.target.value)}})} />
                     </div>
                     <div>
-                        <div className="flex justify-between text-xs mb-1">
+                        <div className="flex justify-between text-xs mb-1 text-slate-300">
                             <span>Fit & Reasoning</span>
                             <span className="font-semibold">{jobConfig.weights.fit}%</span>
                         </div>
-                        <input type="range" className="w-full accent-indigo-600" min="0" max="100" value={jobConfig.weights.fit} onChange={(e) => setJobConfig({...jobConfig, weights: {...jobConfig.weights, fit: parseInt(e.target.value)}})} />
+                        <input type="range" className="w-full accent-orange-500" min="0" max="100" value={jobConfig.weights.fit} onChange={(e) => setJobConfig({...jobConfig, weights: {...jobConfig.weights, fit: parseInt(e.target.value)}})} />
                     </div>
                 </div>
             </div>
@@ -199,7 +200,7 @@ const JobSetup: React.FC<JobSetupProps> = ({ onAnalyze, isProcessing, initialCon
               <button
                 onClick={() => setStep(2)}
                 disabled={!jobConfig.title || !jobConfig.description}
-                className="rounded-md bg-indigo-600 px-6 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 disabled:bg-gray-300 disabled:cursor-not-allowed transition-colors"
+                className="rounded-md bg-orange-600 px-6 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-orange-500 disabled:bg-slate-600 disabled:cursor-not-allowed transition-colors border border-orange-500"
               >
                 Next: Upload CVs
               </button>
@@ -211,17 +212,17 @@ const JobSetup: React.FC<JobSetupProps> = ({ onAnalyze, isProcessing, initialCon
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
             exit={{ opacity: 0, x: 20 }}
-            className="space-y-6 bg-white p-8 rounded-2xl shadow-sm border border-gray-100"
+            className="space-y-6 bg-slate-800/50 backdrop-blur-xl p-8 rounded-2xl shadow-lg border border-white/10"
           >
             <div 
-              className="border-2 border-dashed border-gray-300 rounded-lg p-12 text-center hover:bg-gray-50 transition-colors cursor-pointer group"
+              className="border-2 border-dashed border-slate-600 rounded-lg p-12 text-center hover:bg-slate-700/30 transition-colors cursor-pointer group"
               onClick={() => fileInputRef.current?.click()}
             >
-              <div className="text-indigo-600 text-4xl mb-3 group-hover:scale-110 transition-transform">📄</div>
-              <h3 className="mt-2 text-sm font-semibold text-gray-900">Upload Candidates</h3>
-              <p className="mt-1 text-sm text-gray-500">
+              <div className="text-orange-500 text-4xl mb-3 group-hover:scale-110 transition-transform">📄</div>
+              <h3 className="mt-2 text-sm font-semibold text-white">Upload Candidates</h3>
+              <p className="mt-1 text-sm text-slate-300">
                 Click to upload PDFs or Images.<br/>
-                <span className="text-xs text-gray-400">Max 10 files. Preview generated automatically.</span>
+                <span className="text-xs text-slate-400">Max 10 files. Preview generated automatically.</span>
               </p>
               <input 
                 type="file" 
@@ -235,25 +236,25 @@ const JobSetup: React.FC<JobSetupProps> = ({ onAnalyze, isProcessing, initialCon
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
               {candidates.map(candidate => (
-                <div key={candidate.id} className="flex items-center gap-3 p-3 bg-gray-50 rounded-lg border border-gray-100 relative group">
+                <div key={candidate.id} className="flex items-center gap-3 p-3 bg-slate-700/30 rounded-lg border border-slate-600/50 relative group">
                   <div 
-                    className="h-16 w-12 flex-shrink-0 bg-white border border-gray-200 rounded overflow-hidden cursor-zoom-in"
+                    className="h-16 w-12 flex-shrink-0 bg-slate-700 border border-slate-600 rounded overflow-hidden cursor-zoom-in"
                     onClick={() => setPreviewFile(candidate)}
                   >
                     {candidate.previewUrl ? (
                         <img src={candidate.previewUrl} className="w-full h-full object-cover" alt="preview" />
                     ) : (
-                        <div className="w-full h-full flex items-center justify-center text-xs text-gray-400">No Prev</div>
+                        <div className="w-full h-full flex items-center justify-center text-xs text-slate-500">No Prev</div>
                     )}
                   </div>
                   <div className="min-w-0 flex-1">
-                    <p className="text-sm font-medium text-gray-900 truncate">{candidate.name}</p>
-                    <p className="text-xs text-gray-500 mt-1">
+                    <p className="text-sm font-medium text-white truncate">{candidate.name}</p>
+                    <p className="text-xs text-slate-400 mt-1">
                         {candidate.type.toUpperCase()} • 
-                        {candidate.status === 'done' ? <span className="text-green-600 ml-1">Ready</span> : <span className="text-amber-600 ml-1">Processing...</span>}
+                        {candidate.status === 'done' ? <span className="text-green-400 ml-1">Ready</span> : <span className="text-amber-400 ml-1">Processing...</span>}
                     </p>
                   </div>
-                  <button onClick={() => removeFile(candidate.id)} className="text-gray-400 hover:text-red-500 p-2">
+                  <button onClick={() => removeFile(candidate.id)} className="text-slate-500 hover:text-red-400 p-2">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5">
                       <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
                     </svg>
@@ -265,14 +266,14 @@ const JobSetup: React.FC<JobSetupProps> = ({ onAnalyze, isProcessing, initialCon
             <div className="pt-4 flex justify-between items-center">
               <button
                 onClick={() => setStep(1)}
-                className="text-sm font-semibold text-gray-600 hover:text-gray-900"
+                className="text-sm font-semibold text-slate-300 hover:text-white"
               >
                 ← Back to Requirements
               </button>
               <button
                 onClick={() => onAnalyze(jobConfig, candidates)}
                 disabled={candidates.length === 0 || isProcessing || candidates.some(c => c.status === 'processing')}
-                className="rounded-md bg-indigo-600 px-6 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 disabled:bg-gray-300 disabled:cursor-not-allowed flex items-center gap-2 transition-all hover:scale-105 active:scale-95"
+                className="rounded-md bg-orange-600 px-6 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-orange-500 disabled:bg-slate-600 disabled:cursor-not-allowed flex items-center gap-2 transition-all hover:scale-105 active:scale-95 border border-orange-500"
               >
                 {isProcessing ? 'Analyzing...' : 'Run AI Selection'}
               </button>
@@ -283,22 +284,23 @@ const JobSetup: React.FC<JobSetupProps> = ({ onAnalyze, isProcessing, initialCon
 
       {/* PDF/Image Preview Modal */}
       {previewFile && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm p-4" onClick={() => setPreviewFile(null)}>
-            <div className="bg-white rounded-lg shadow-xl max-w-2xl w-full max-h-[90vh] overflow-hidden flex flex-col" onClick={e => e.stopPropagation()}>
-                <div className="p-4 border-b flex justify-between items-center">
-                    <h3 className="font-medium">{previewFile.name}</h3>
-                    <button onClick={() => setPreviewFile(null)} className="text-gray-500 hover:text-gray-700">✕</button>
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 backdrop-blur-sm p-4" onClick={() => setPreviewFile(null)}>
+            <div className="bg-slate-800 rounded-lg shadow-xl max-w-2xl w-full max-h-[90vh] overflow-hidden flex flex-col border border-slate-700" onClick={e => e.stopPropagation()}>
+                <div className="p-4 border-b border-slate-700 flex justify-between items-center">
+                    <h3 className="font-medium text-white">{previewFile.name}</h3>
+                    <button onClick={() => setPreviewFile(null)} className="text-slate-400 hover:text-white">✕</button>
                 </div>
-                <div className="flex-1 overflow-auto p-4 bg-gray-100 flex justify-center">
+                <div className="flex-1 overflow-auto p-4 bg-slate-900 flex justify-center">
                     {previewFile.previewUrl ? (
                          <img src={previewFile.previewUrl} alt="Full Preview" className="max-w-full shadow-md" />
                     ) : (
-                        <div className="text-gray-500">Preview not available</div>
+                        <div className="text-slate-500">Preview not available</div>
                     )}
                 </div>
             </div>
         </div>
       )}
+      </div>
     </div>
   );
 };

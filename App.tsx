@@ -75,7 +75,7 @@ const App: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-slate-50 text-slate-900 font-sans">
+    <div className="min-h-screen bg-gradient-to-b from-slate-900 via-slate-800 to-black text-white font-sans">
       {/* Navbar */}
       <nav className={`fixed top-4 md:top-8 left-1/2 -translate-x-1/2 z-50 transition-all duration-300 ${state.view === 'landing' ? 'w-11/12 md:w-11/12 md:max-w-3xl px-4 md:px-0' : 'w-full px-8'}`}>
         {state.view === 'landing' ? (
