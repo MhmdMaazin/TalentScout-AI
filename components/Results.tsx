@@ -178,91 +178,91 @@ const Results: React.FC<ResultsProps> = ({ results, candidates, jobConfig, onRes
     <div className="min-h-screen bg-gradient-to-b from-slate-900 via-slate-800 to-black">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 pb-24">
         {/* Header & Toolbar */}
-        <div className="flex flex-col md:flex-row justify-between items-center mb-10 gap-4">
-          <div>
-            <h2 className="text-3xl font-bold text-white">Analysis Results</h2>
-            <p className="mt-1 text-sm text-slate-400">
+        <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-8 md:mb-10 gap-4">
+          <div className="w-full md:w-auto">
+            <h2 className="text-2xl md:text-3xl font-bold text-white">Analysis Results</h2>
+            <p className="mt-1 text-xs md:text-sm text-slate-400 truncate">
               Role: <span className="font-medium text-orange-400">{jobConfig.title}</span>
             </p>
           </div>
-        <div className="flex flex-wrap gap-3 items-center">
+        <div className="flex flex-wrap gap-2 md:gap-3 items-center w-full md:w-auto">
             {/* Blind Mode Toggle */}
-            <div className="flex items-center gap-2 mr-4 bg-slate-800/50 px-3 py-1.5 rounded-full border border-slate-600 shadow-sm backdrop-blur-xl">
-                <span className="text-sm text-slate-300 font-medium">Blind Mode</span>
+            <div className="flex items-center gap-2 bg-slate-800/50 px-2 md:px-3 py-1.5 rounded-full border border-slate-600 shadow-sm backdrop-blur-xl">
+                <span className="text-xs md:text-sm text-slate-300 font-medium hidden sm:inline">Blind</span>
                 <button 
                     onClick={() => setBlindMode(!blindMode)}
-                    className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors focus:outline-none ${blindMode ? 'bg-orange-600' : 'bg-slate-600'}`}
+                    className={`relative inline-flex h-5 md:h-6 w-9 md:w-11 items-center rounded-full transition-colors focus:outline-none ${blindMode ? 'bg-orange-600' : 'bg-slate-600'}`}
                 >
-                    <span className={`inline-block h-4 w-4 transform rounded-full bg-white transition-transform ${blindMode ? 'translate-x-6' : 'translate-x-1'}`} />
+                    <span className={`inline-block h-3 md:h-4 w-3 md:w-4 transform rounded-full bg-white transition-transform ${blindMode ? 'translate-x-5 md:translate-x-6' : 'translate-x-0.5 md:translate-x-1'}`} />
                 </button>
             </div>
 
              <button
                 onClick={handleExportCSV}
-                className="flex items-center gap-2 rounded-md bg-slate-800/50 px-4 py-2 text-sm font-medium text-slate-300 shadow-sm ring-1 ring-inset ring-slate-600 hover:bg-slate-700/50 transition-colors backdrop-blur-xl"
+                className="flex items-center gap-1 md:gap-2 rounded-md bg-slate-800/50 px-2 md:px-4 py-1.5 md:py-2 text-xs md:text-sm font-medium text-slate-300 shadow-sm ring-1 ring-inset ring-slate-600 hover:bg-slate-700/50 transition-colors backdrop-blur-xl"
             >
-                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" /></svg>
-                Export CSV
+                <svg className="w-3 md:w-4 h-3 md:h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" /></svg>
+                <span className="hidden sm:inline">Export</span>
             </button>
              <button
                 onClick={onEditConfig}
-                className="rounded-md bg-slate-800/50 px-4 py-2 text-sm font-medium text-orange-400 shadow-sm ring-1 ring-inset ring-orange-500/30 hover:bg-slate-700/50 transition-colors backdrop-blur-xl"
+                className="rounded-md bg-slate-800/50 px-2 md:px-4 py-1.5 md:py-2 text-xs md:text-sm font-medium text-orange-400 shadow-sm ring-1 ring-inset ring-orange-500/30 hover:bg-slate-700/50 transition-colors backdrop-blur-xl"
             >
-                Adjust Weights
+                <span className="hidden sm:inline">Adjust</span><span className="sm:hidden">Edit</span>
             </button>
             <button
                 onClick={onReset}
-                className="rounded-md bg-slate-800/50 px-4 py-2 text-sm font-medium text-slate-300 shadow-sm ring-1 ring-inset ring-slate-600 hover:bg-slate-700/50 transition-colors backdrop-blur-xl"
+                className="rounded-md bg-slate-800/50 px-2 md:px-4 py-1.5 md:py-2 text-xs md:text-sm font-medium text-slate-300 shadow-sm ring-1 ring-inset ring-slate-600 hover:bg-slate-700/50 transition-colors backdrop-blur-xl"
             >
-                New Search
+                Reset
             </button>
         </div>
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 md:gap-8">
         {/* Main Chart Section */}
-        <div className="lg:col-span-2 space-y-8">
+        <div className="lg:col-span-2 space-y-6 md:space-y-8">
           {/* Top Candidate Card */}
           <motion.div 
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            className="bg-gradient-to-br from-orange-600 to-orange-500 rounded-2xl p-8 text-white shadow-xl relative overflow-hidden"
+            className="bg-gradient-to-br from-orange-600 to-orange-500 rounded-xl md:rounded-2xl p-4 md:p-8 text-white shadow-xl relative overflow-hidden"
           >
              {/* Decorative blob */}
-             <div className="absolute top-0 right-0 w-64 h-64 bg-white opacity-10 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2"></div>
+             <div className="absolute top-0 right-0 w-40 md:w-64 h-40 md:h-64 bg-white opacity-10 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2"></div>
 
-            <div className="flex items-start justify-between relative z-10">
-              <div>
-                <div className="text-orange-100 font-medium mb-1">Top Match</div>
-                <h1 className={`text-4xl font-bold ${blindMode ? 'blur-sm select-none' : ''}`}>
+            <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-4 relative z-10">
+              <div className="flex-1">
+                <div className="text-orange-100 font-medium mb-1 text-xs md:text-sm">Top Match</div>
+                <h1 className={`text-2xl md:text-4xl font-bold ${blindMode ? 'blur-sm select-none' : ''}`}>
                     {getCandidateName(bestCandidate.candidateName, 0)}
                 </h1>
-                <p className="mt-4 text-orange-50 max-w-2xl text-lg leading-relaxed opacity-90">
+                <p className="mt-2 md:mt-4 text-orange-50 text-sm md:text-lg leading-relaxed opacity-90">
                   {bestCandidate.matchSummary}
                 </p>
               </div>
-              <div className="bg-white/20 backdrop-blur-md rounded-2xl p-4 flex flex-col items-center min-w-[100px]">
-                <span className="text-sm font-medium opacity-80">Score</span>
-                <span className="text-5xl font-bold mt-1">{bestCandidate.score}</span>
+              <div className="bg-white/20 backdrop-blur-md rounded-xl md:rounded-2xl p-3 md:p-4 flex flex-col items-center min-w-[80px] md:min-w-[100px] flex-shrink-0">
+                <span className="text-xs md:text-sm font-medium opacity-80">Score</span>
+                <span className="text-3xl md:text-5xl font-bold mt-1">{bestCandidate.score}</span>
               </div>
             </div>
             
-            <div className="mt-8 grid grid-cols-2 gap-4 relative z-10">
-              <div className="bg-white/10 rounded-xl p-4">
-                <h4 className="font-semibold mb-2 flex items-center gap-2">
+            <div className="mt-4 md:mt-8 grid grid-cols-1 md:grid-cols-2 gap-3 md:gap-4 relative z-10">
+              <div className="bg-white/10 rounded-lg md:rounded-xl p-3 md:p-4">
+                <h4 className="font-semibold mb-2 flex items-center gap-2 text-xs md:text-sm">
                   <span className="bg-green-300 w-2 h-2 rounded-full"></span> Strengths
                 </h4>
-                <ul className="list-none space-y-1 text-sm opacity-90">
+                <ul className="list-none space-y-1 text-xs md:text-sm opacity-90">
                   {bestCandidate.pros.slice(0, 3).map((pro, i) => (
                     <li key={i}>• {pro}</li>
                   ))}
                 </ul>
               </div>
-              <div className="bg-white/10 rounded-xl p-4">
-                <h4 className="font-semibold mb-2 flex items-center gap-2">
+              <div className="bg-white/10 rounded-lg md:rounded-xl p-3 md:p-4">
+                <h4 className="font-semibold mb-2 flex items-center gap-2 text-xs md:text-sm">
                    <span className="bg-yellow-300 w-2 h-2 rounded-full"></span> Considerations
                 </h4>
-                <ul className="list-none space-y-1 text-sm opacity-90">
+                <ul className="list-none space-y-1 text-xs md:text-sm opacity-90">
                   {bestCandidate.cons.slice(0, 3).map((con, i) => (
                     <li key={i}>• {con}</li>
                   ))}
@@ -276,29 +276,29 @@ const Results: React.FC<ResultsProps> = ({ results, candidates, jobConfig, onRes
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ delay: 0.2 }}
-            className="bg-white rounded-2xl p-6 shadow-sm border border-gray-100"
+            className="bg-slate-800/50 backdrop-blur-xl rounded-xl md:rounded-2xl p-4 md:p-6 shadow-lg border border-slate-700"
           >
-            <h3 className="text-lg font-semibold text-gray-900 mb-6">Candidate Comparison</h3>
-            <div className="h-[300px] w-full">
+            <h3 className="text-base md:text-lg font-semibold text-white mb-4 md:mb-6">Candidate Comparison</h3>
+            <div className="h-[250px] md:h-[300px] w-full overflow-x-auto">
               <ResponsiveContainer width="100%" height="100%">
-                <BarChart data={sortedResults} layout="vertical" margin={{ left: 40, right: 40 }}>
+                <BarChart data={sortedResults} layout="vertical" margin={{ left: 80, right: 20 }}>
                   <XAxis type="number" domain={[0, 100]} hide />
                   <YAxis 
                     type="category" 
                     dataKey="candidateName" 
-                    width={150} 
+                    width={70} 
                     tickFormatter={(val, index) => blindMode ? `Candidate #${sortedResults.length - index}` : val} 
-                    tick={{ fontSize: 12 }} 
+                    tick={{ fontSize: 11, fill: '#cbd5e1' }} 
                   />
                   <Tooltip 
-                    cursor={{ fill: '#f3f4f6' }}
-                    contentStyle={{ borderRadius: '12px', border: 'none', boxShadow: '0 4px 6px -1px rgb(0 0 0 / 0.1)' }}
+                    cursor={{ fill: 'rgba(255,255,255,0.1)' }}
+                    contentStyle={{ borderRadius: '12px', border: 'none', boxShadow: '0 4px 6px -1px rgb(0 0 0 / 0.3)', backgroundColor: '#1e293b', color: '#fff' }}
                     formatter={(value: any) => [value, 'Score']}
                     labelFormatter={(label) => blindMode ? 'Candidate' : label}
                   />
-                  <Bar dataKey="score" radius={[0, 4, 4, 0]} barSize={32}>
+                  <Bar dataKey="score" radius={[0, 4, 4, 0]} barSize={24}>
                     {sortedResults.map((entry, index) => (
-                      <Cell key={`cell-${index}`} fill={index === 0 ? '#6366f1' : '#cbd5e1'} />
+                      <Cell key={`cell-${index}`} fill={index === 0 ? '#f97316' : '#64748b'} />
                     ))}
                   </Bar>
                 </BarChart>
@@ -308,10 +308,10 @@ const Results: React.FC<ResultsProps> = ({ results, candidates, jobConfig, onRes
         </div>
 
         {/* List of all candidates */}
-        <div className="space-y-4">
-          <h3 className="text-lg font-semibold text-white">Detailed Breakdown</h3>
-          <p className="text-xs text-slate-400 -mt-3 mb-2">Check box to compare. Click card to expand.</p>
-          <div className="space-y-4">
+        <div className="space-y-3 md:space-y-4">
+          <h3 className="text-base md:text-lg font-semibold text-white">Detailed Breakdown</h3>
+          <p className="text-xs text-slate-400 -mt-2 md:-mt-3 mb-2">Check box to compare. Click card to expand.</p>
+          <div className="space-y-3 md:space-y-4">
             {sortedResults.map((result, idx) => (
               <motion.div
                 key={result.candidateId}
@@ -338,25 +338,25 @@ const Results: React.FC<ResultsProps> = ({ results, candidates, jobConfig, onRes
                     </div>
                  </div>
 
-                <div className="p-5">
-                    <div className="flex justify-between items-start mb-2 pr-8">
-                        <h4 className={`font-bold text-white ${blindMode ? 'blur-sm' : ''}`}>
+                <div className="p-3 md:p-5">
+                    <div className="flex justify-between items-start mb-2 pr-8 gap-2">
+                        <h4 className={`font-bold text-white text-sm md:text-base truncate ${blindMode ? 'blur-sm' : ''}`}>
                             {getCandidateName(result.candidateName, idx)}
                         </h4>
-                        <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${
+                        <span className={`inline-flex items-center px-2 md:px-2.5 py-0.5 rounded-full text-xs font-medium flex-shrink-0 ${
                             result.score > 80 ? 'bg-green-500/20 text-green-300' : 
                             result.score > 50 ? 'bg-yellow-500/20 text-yellow-300' : 
                             'bg-red-500/20 text-red-300'
                         }`}>
-                            {result.score}% Match
+                            {result.score}%
                         </span>
                     </div>
                     
-                    <p className="text-xs text-white/80 mb-3">{result.matchSummary}</p>
+                    <p className="text-xs text-slate-300 mb-2 md:mb-3 line-clamp-2">{result.matchSummary}</p>
                     
                     <div className="flex flex-wrap gap-1">
-                        {result.skillsFound.slice(0, 4).map(skill => (
-                            <span key={skill} className="px-2 py-1 bg-slate-700/50 text-slate-300 text-[10px] rounded-md uppercase tracking-wider">
+                        {result.skillsFound.slice(0, 3).map(skill => (
+                            <span key={skill} className="px-2 py-0.5 bg-slate-700/50 text-slate-300 text-[9px] md:text-[10px] rounded-md uppercase tracking-wider">
                             {skill}
                             </span>
                         ))}
@@ -375,48 +375,48 @@ const Results: React.FC<ResultsProps> = ({ results, candidates, jobConfig, onRes
                             onClick={(e) => e.stopPropagation()} 
                         >
                             {/* Tabs */}
-                            <div className="flex border-b border-slate-700">
+                            <div className="flex border-b border-gray-200 overflow-x-auto">
                                 <button 
                                     onClick={() => setActiveTab('analysis')}
-                                    className={`flex-1 py-3 text-xs font-semibold text-center ${activeTab === 'analysis' ? 'text-orange-400 border-b-2 border-orange-500 bg-orange-500/10' : 'text-slate-400 hover:bg-slate-700/30'}`}
+                                    className={`flex-1 py-2 md:py-3 text-xs font-semibold text-center whitespace-nowrap ${activeTab === 'analysis' ? 'text-indigo-600 border-b-2 border-indigo-600 bg-indigo-50/50' : 'text-gray-500 hover:bg-gray-100'}`}
                                 >
                                     Analysis
                                 </button>
                                 <button 
                                     onClick={() => setActiveTab('actions')}
-                                    className={`flex-1 py-3 text-xs font-semibold text-center ${activeTab === 'actions' ? 'text-orange-400 border-b-2 border-orange-500 bg-orange-500/10' : 'text-slate-400 hover:bg-slate-700/30'}`}
+                                    className={`flex-1 py-2 md:py-3 text-xs font-semibold text-center whitespace-nowrap ${activeTab === 'actions' ? 'text-indigo-600 border-b-2 border-indigo-600 bg-indigo-50/50' : 'text-gray-500 hover:bg-gray-100'}`}
                                 >
                                     Actions
                                 </button>
                                 <button 
                                     onClick={() => setActiveTab('chat')}
-                                    className={`flex-1 py-3 text-xs font-semibold text-center ${activeTab === 'chat' ? 'text-orange-400 border-b-2 border-orange-500 bg-orange-500/10' : 'text-slate-400 hover:bg-slate-700/30'}`}
+                                    className={`flex-1 py-2 md:py-3 text-xs font-semibold text-center whitespace-nowrap ${activeTab === 'chat' ? 'text-indigo-600 border-b-2 border-indigo-600 bg-indigo-50/50' : 'text-gray-500 hover:bg-gray-100'}`}
                                 >
                                     Ask AI
                                 </button>
                             </div>
 
-                            <div className="p-5">
+                            <div className="p-3 md:p-5 bg-gray-50 max-h-[400px] md:max-h-[500px] overflow-y-auto">
                                 {activeTab === 'analysis' && (
-                                    <div className="space-y-4">
+                                    <div className="space-y-3 md:space-y-4">
                                         <div>
-                                            <h5 className="text-xs font-bold text-orange-400 uppercase mb-2">Strengths</h5>
-                                            <ul className="text-xs text-slate-900 space-y-1 list-disc pl-4">
+                                            <h5 className="text-xs font-bold text-gray-700 uppercase mb-2">Strengths</h5>
+                                            <ul className="text-xs text-gray-600 space-y-1 list-disc pl-4">
                                                 {result.pros.map((p, i) => <li key={i}>{p}</li>)}
                                             </ul>
                                         </div>
                                         <div>
-                                            <h5 className="text-xs font-bold text-orange-400 uppercase mb-2">Weaknesses / Gaps</h5>
-                                            <ul className="text-xs text-slate-900 space-y-1 list-disc pl-4">
+                                            <h5 className="text-xs font-bold text-gray-700 uppercase mb-2">Weaknesses / Gaps</h5>
+                                            <ul className="text-xs text-gray-600 space-y-1 list-disc pl-4">
                                                 {result.cons.map((c, i) => <li key={i}>{c}</li>)}
                                             </ul>
                                         </div>
                                         
                                         <div>
-                                            <h5 className="text-xs font-bold text-orange-400 uppercase mb-2">Personal Notes</h5>
+                                            <h5 className="text-xs font-bold text-gray-700 uppercase mb-2">Personal Notes</h5>
                                             <textarea 
-                                                className="w-full text-xs p-2 border border-slate-600 bg-slate-300/50 text-slate-900 placeholder-slate-500 rounded-md focus:ring-orange-500 focus:border-orange-500"
-                                                rows={3}
+                                                className="w-full text-xs p-2 border border-gray-300 bg-white text-gray-900 placeholder-gray-500 rounded-md focus:ring-indigo-500 focus:border-indigo-500"
+                                                rows={2}
                                                 placeholder="Add your notes..."
                                                 value={notes[result.candidateId] || ''}
                                                 onChange={(e) => handleNoteChange(result.candidateId, e.target.value)}
@@ -428,69 +428,69 @@ const Results: React.FC<ResultsProps> = ({ results, candidates, jobConfig, onRes
                                 {activeTab === 'actions' && (
                                     <div className="space-y-6">
                                         {/* Interview Generator */}
-                                        <div className="bg-white p-4 rounded-lg border border-slate-600 shadow-sm">
+                                        <div className="bg-white p-4 rounded-lg border border-gray-200 shadow-sm">
                                             <div className="flex justify-between items-center mb-3">
-                                                <h5 className="text-sm font-bold text-orange-400">Smart Interview Questions</h5>
+                                                <h5 className="text-sm font-bold text-indigo-900">Smart Interview Questions</h5>
                                                 <button 
                                                     onClick={() => handleGenerateQuestions(result)}
                                                     disabled={loadingAction === 'questions'}
-                                                    className="text-xs bg-orange-500/20 text-slate-700 px-3 py-1.5 rounded-md hover:bg-orange-500/30 transition-colors border border-orange-500/30 flex items-center gap-2 disabled:opacity-70 disabled:cursor-not-allowed"
+                                                    className="text-xs bg-indigo-50 text-indigo-700 px-3 py-1.5 rounded-md hover:bg-indigo-100 transition-colors border border-indigo-200 flex items-center gap-2 disabled:opacity-70 disabled:cursor-not-allowed"
                                                 >
-                                                    {loadingAction === 'questions' && <span className="animate-spin h-3 w-3 border-2 border-orange-300 border-t-transparent rounded-full"></span>}
+                                                    {loadingAction === 'questions' && <span className="animate-spin h-3 w-3 border-2 border-indigo-700 border-t-transparent rounded-full"></span>}
                                                     {loadingAction === 'questions' ? 'Generating...' : 'Generate New'}
                                                 </button>
                                             </div>
                                             {loadingAction === 'questions' ? (
-                                                <div className="space-y-2 animate-pulse p-3 bg-slate-700/50 rounded border border-slate-600">
-                                                    <div className="h-2 bg-slate-600 rounded w-3/4"></div>
-                                                    <div className="h-2 bg-slate-600 rounded w-1/2"></div>
-                                                    <div className="h-2 bg-slate-600 rounded w-5/6"></div>
+                                                <div className="space-y-2 animate-pulse p-3 bg-gray-50 rounded border border-gray-100">
+                                                    <div className="h-2 bg-gray-200 rounded w-3/4"></div>
+                                                    <div className="h-2 bg-gray-200 rounded w-1/2"></div>
+                                                    <div className="h-2 bg-gray-200 rounded w-5/6"></div>
                                                 </div>
                                             ) : generatedQuestions[result.candidateId] ? (
-                                                <div className="text-xs text-slate-900 whitespace-pre-wrap bg-slate-300/50 p-3 rounded border border-slate-600 leading-relaxed">
+                                                <div className="text-xs text-gray-700 whitespace-pre-wrap bg-gray-50 p-3 rounded border border-gray-100 leading-relaxed">
                                                     {generatedQuestions[result.candidateId]}
                                                 </div>
                                             ) : (
-                                                <p className="text-xs text-slate-900 italic">Generate questions based on candidate weaknesses to use in your interview.</p>
+                                                <p className="text-xs text-gray-500 italic">Generate questions based on candidate weaknesses to use in your interview.</p>
                                             )}
                                         </div>
 
                                         {/* Email Generator */}
-                                        <div className="bg-white p-4 rounded-lg border border-slate-600 shadow-sm">
+                                        <div className="bg-white p-4 rounded-lg border border-gray-200 shadow-sm">
                                             <div className="flex justify-between items-center mb-3">
-                                                <h5 className="text-sm font-bold text-orange-400">Outreach Emails</h5>
+                                                <h5 className="text-sm font-bold text-indigo-900">Outreach Emails</h5>
                                                 <div className="flex gap-2">
                                                     <button 
                                                         onClick={() => handleGenerateEmail(result, 'invite')}
                                                         disabled={loadingAction === 'email'}
-                                                        className="text-xs bg-green-500/20 text-slate-700 px-3 py-1.5 rounded-md hover:bg-green-500/30 transition-colors border border-green-500/30 flex items-center gap-1 disabled:opacity-70"
+                                                        className="text-xs bg-green-50 text-green-700 px-3 py-1.5 rounded-md hover:bg-green-100 transition-colors border border-green-200 flex items-center gap-1 disabled:opacity-70"
                                                     >
-                                                        {loadingAction === 'email' && <span className="animate-spin h-2 w-2 border-2 border-green-300 border-t-transparent rounded-full"></span>} Invite
+                                                        {loadingAction === 'email' && <span className="animate-spin h-2 w-2 border-2 border-green-700 border-t-transparent rounded-full"></span>} Invite
                                                     </button>
                                                     <button 
                                                         onClick={() => handleGenerateEmail(result, 'reject')}
                                                         disabled={loadingAction === 'email'}
-                                                        className="text-xs bg-red-500/20 text-slate-700 px-3 py-1.5 rounded-md hover:bg-red-500/30 transition-colors border border-red-500/30 flex items-center gap-1 disabled:opacity-70"
+                                                        className="text-xs bg-red-50 text-red-700 px-3 py-1.5 rounded-md hover:bg-red-100 transition-colors border border-red-200 flex items-center gap-1 disabled:opacity-70"
                                                     >
-                                                        {loadingAction === 'email' && <span className="animate-spin h-2 w-2 border-2 border-red-300 border-t-transparent rounded-full"></span>} Reject
+                                                        {loadingAction === 'email' && <span className="animate-spin h-2 w-2 border-2 border-red-700 border-t-transparent rounded-full"></span>} Reject
                                                     </button>
                                                 </div>
                                             </div>
                                             {loadingAction === 'email' ? (
-                                                <div className="space-y-2 animate-pulse p-3 bg-slate-700/50 rounded border border-slate-600">
-                                                    <div className="h-2 bg-slate-600 rounded w-full"></div>
-                                                    <div className="h-2 bg-slate-600 rounded w-full"></div>
-                                                    <div className="h-2 bg-slate-600 rounded w-2/3"></div>
-                                                    <div className="h-2 bg-slate-600 rounded w-1/2"></div>
+                                                <div className="space-y-2 animate-pulse p-3 bg-gray-50 rounded border border-gray-100">
+                                                    <div className="h-2 bg-gray-200 rounded w-full"></div>
+                                                    <div className="h-2 bg-gray-200 rounded w-full"></div>
+                                                    <div className="h-2 bg-gray-200 rounded w-2/3"></div>
+                                                    <div className="h-2 bg-gray-200 rounded w-1/2"></div>
                                                 </div>
                                             ) : generatedEmails[result.candidateId] ? (
                                                 <textarea 
                                                     readOnly 
-                                                    className="w-full text-xs text-slate-900 bg-slate-300/50 p-3 rounded border border-slate-600 leading-relaxed h-32 focus:outline-none resize-none"
+                                                    className="w-full text-xs text-gray-700 bg-gray-50 p-3 rounded border border-gray-100 leading-relaxed h-32 focus:outline-none resize-none"
                                                     value={generatedEmails[result.candidateId]}
                                                 />
                                             ) : (
-                                                <p className="text-xs text-slate-900 italic">Generate a personalized invite or rejection email instantly.</p>
+                                                <p className="text-xs text-gray-500 italic">Generate a personalized invite or rejection email instantly.</p>
                                             )}
                                         </div>
                                     </div>
@@ -498,9 +498,9 @@ const Results: React.FC<ResultsProps> = ({ results, candidates, jobConfig, onRes
 
                                 {activeTab === 'chat' && (
                                     <div className="h-[300px] flex flex-col">
-                                        <div className="flex-1 overflow-y-auto bg-slate-300/50 border border-slate-600 rounded-lg p-3 space-y-3 mb-3 custom-scrollbar">
+                                        <div className="flex-1 overflow-y-auto bg-white border border-gray-200 rounded-lg p-3 space-y-3 mb-3 custom-scrollbar">
                                             {(chatHistories[result.candidateId] || []).length === 0 && (
-                                                <div className="text-center text-xs text-slate-900 mt-10">
+                                                <div className="text-center text-xs text-gray-400 mt-10">
                                                     Ask anything about this candidate's experience.<br/>
                                                     e.g. "Does he have experience with AWS?"
                                                 </div>
@@ -509,8 +509,8 @@ const Results: React.FC<ResultsProps> = ({ results, candidates, jobConfig, onRes
                                                 <div key={i} className={`flex ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}>
                                                     <div className={`max-w-[85%] p-3 rounded-2xl text-xs leading-relaxed ${
                                                         msg.role === 'user' 
-                                                        ? 'bg-orange-600 text-white rounded-br-none shadow-sm' 
-                                                        : 'bg-slate-700 text-slate-200 rounded-bl-none border border-slate-600'
+                                                        ? 'bg-indigo-600 text-white rounded-br-none shadow-sm' 
+                                                        : 'bg-gray-100 text-gray-800 rounded-bl-none border border-gray-200'
                                                     }`}>
                                                         {msg.text}
                                                     </div>
@@ -518,12 +518,12 @@ const Results: React.FC<ResultsProps> = ({ results, candidates, jobConfig, onRes
                                             ))}
                                             {loadingAction === 'chat' && (
                                                  <div className="flex justify-start">
-                                                    <div className="bg-slate-700 text-slate-200 p-3 rounded-2xl rounded-bl-none border border-slate-600 text-xs flex items-center gap-1">
+                                                    <div className="bg-gray-100 text-gray-500 p-3 rounded-2xl rounded-bl-none border border-gray-200 text-xs flex items-center gap-1">
                                                         <span>Typing</span>
                                                         <span className="flex gap-1 ml-1">
-                                                            <span className="animate-bounce h-1 w-1 bg-slate-200 rounded-full"></span>
-                                                            <span className="animate-bounce delay-100 h-1 w-1 bg-slate-200 rounded-full"></span>
-                                                            <span className="animate-bounce delay-200 h-1 w-1 bg-slate-200 rounded-full"></span>
+                                                            <span className="animate-bounce h-1 w-1 bg-gray-400 rounded-full"></span>
+                                                            <span className="animate-bounce delay-100 h-1 w-1 bg-gray-400 rounded-full"></span>
+                                                            <span className="animate-bounce delay-200 h-1 w-1 bg-gray-400 rounded-full"></span>
                                                         </span>
                                                     </div>
                                                 </div>
@@ -542,7 +542,7 @@ const Results: React.FC<ResultsProps> = ({ results, candidates, jobConfig, onRes
                                             <button 
                                                 onClick={() => handleChatSubmit(result)}
                                                 disabled={loadingAction === 'chat' || !chatInput.trim()}
-                                                className="bg-indigo-600 text-slate-900 px-4 py-2 rounded-md text-xs font-medium hover:bg-indigo-700 disabled:bg-gray-300 transition-colors shadow-sm"
+                                                className="bg-indigo-600 text-white px-4 py-2 rounded-md text-xs font-medium hover:bg-indigo-700 disabled:bg-gray-300 transition-colors shadow-sm"
                                             >
                                                 Send
                                             </button>
@@ -568,20 +568,20 @@ const Results: React.FC<ResultsProps> = ({ results, candidates, jobConfig, onRes
                 exit={{ y: 100, opacity: 0 }}
                 className="fixed bottom-8 left-1/2 transform -translate-x-1/2 bg-gray-900 text-white px-6 py-4 rounded-full shadow-2xl z-40 flex items-center gap-6"
             >
-                <div className="text-sm font-medium">
+                <div className="text-xs md:text-sm font-medium">
                     <span className="text-indigo-400 font-bold">{selectedIds.length}</span> selected
                 </div>
                 <div className="h-6 w-px bg-gray-700"></div>
                 <button 
                     onClick={handleRunComparison}
                     disabled={selectedIds.length < 2}
-                    className="bg-indigo-600 hover:bg-indigo-500 text-white px-5 py-2 rounded-full text-sm font-bold shadow-lg transition-colors disabled:bg-gray-700 disabled:cursor-not-allowed flex items-center gap-2"
+                    className="bg-indigo-600 hover:bg-indigo-500 text-white px-3 md:px-5 py-2 rounded-full text-xs md:text-sm font-bold shadow-lg transition-colors disabled:bg-gray-700 disabled:cursor-not-allowed flex items-center gap-1 md:gap-2"
                 >
-                    <span className="text-lg">⚔️</span> Compare
+                    <span className="text-base md:text-lg">⚔️</span> <span className="hidden sm:inline">Compare</span>
                 </button>
                 <button 
                     onClick={() => setSelectedIds([])}
-                    className="text-gray-400 hover:text-white text-sm"
+                    className="text-gray-400 hover:text-white text-xs md:text-sm"
                 >
                     Clear
                 </button>
@@ -591,52 +591,54 @@ const Results: React.FC<ResultsProps> = ({ results, candidates, jobConfig, onRes
 
       {/* Comparison Modal */}
       {isComparing && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm p-4" onClick={() => setIsComparing(false)}>
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm p-2 md:p-4" onClick={() => setIsComparing(false)}>
             <motion.div 
                 initial={{ scale: 0.9, opacity: 0 }}
                 animate={{ scale: 1, opacity: 1 }}
                 onClick={(e) => e.stopPropagation()}
-                className="bg-slate-800 rounded-2xl shadow-2xl max-w-5xl w-full max-h-[90vh] overflow-hidden flex flex-col border border-slate-700"
+                className="bg-slate-800 rounded-lg md:rounded-2xl shadow-2xl max-w-5xl w-full max-h-[95vh] md:max-h-[90vh] overflow-hidden flex flex-col border border-slate-700"
             >
-                <div className="p-6 border-b border-slate-700 flex justify-between items-center bg-slate-800/50">
-                    <h3 className="text-xl font-bold text-slate-200 flex items-center gap-2">
-                        <span>⚔️</span> Candidate Showdown
+                <div className="p-3 md:p-6 border-b border-slate-700 flex justify-between items-center bg-slate-800/50">
+                    <h3 className="text-lg md:text-xl font-bold text-slate-200 flex items-center gap-2">
+                        <span>⚔️</span> <span className="hidden sm:inline">Candidate</span> Showdown
                     </h3>
                     <button onClick={() => setIsComparing(false)} className="text-gray-500 hover:text-gray-700 p-2 rounded-full hover:bg-gray-200">✕</button>
                 </div>
                 
-                <div className="flex-1 overflow-auto p-8">
+                <div className="flex-1 overflow-auto p-3 md:p-8">
                     {!comparisonResult ? (
                         <div className="flex flex-col items-center justify-center h-64 space-y-4">
                              <div className="w-16 h-16 border-4 border-indigo-200 border-t-indigo-600 rounded-full animate-spin"></div>
-                             <p className="text-gray-500 font-medium">AI is analyzing differences...</p>
+                             <p className="text-gray-500 font-medium text-sm md:text-base">AI is analyzing differences...</p>
                         </div>
                     ) : (
-                        <div className="space-y-8">
+                        <div className="space-y-4 md:space-y-8">
                            {/* Winner Banner */}
-                            <div className="bg-gradient-to-r from-yellow-50 to-amber-50 border border-amber-100 rounded-xl p-6 flex flex-col md:flex-row gap-6 items-center">
-                                <div className="text-6xl">🏆</div>
+                            <div className="bg-gradient-to-r from-yellow-50 to-amber-50 border border-amber-100 rounded-lg md:rounded-xl p-4 md:p-6 flex flex-col md:flex-row gap-4 md:gap-6 items-center">
+                                <div className="text-4xl md:text-6xl flex-shrink-0">🏆</div>
                                 <div className="flex-1 text-center md:text-left">
                                     <div className="text-amber-800 font-bold uppercase tracking-wider text-xs mb-1">Recommended Winner</div>
-                                    <h2 className="text-2xl font-bold text-gray-900 mb-2">
+                                    <h2 className="text-xl md:text-2xl font-bold text-gray-900 mb-2">
                                         {candidates.find(c => c.id === comparisonResult.winnerId)?.name || 'Unknown Candidate'}
                                     </h2>
-                                    <p className="text-gray-700 leading-relaxed">{comparisonResult.summary}</p>
+                                    <p className="text-gray-700 leading-relaxed text-sm md:text-base">{comparisonResult.summary}</p>
                                 </div>
                             </div>
 
                             {/* Comparison Matrix */}
-                            <div className="overflow-x-auto rounded-xl border border-gray-200">
-                                <table className="w-full text-sm text-left">
+                            <div className="overflow-x-auto rounded-lg md:rounded-xl border border-gray-200">
+                                <table className="w-full text-xs md:text-sm text-left">
                                     <thead className="text-xs text-gray-700 uppercase bg-gray-100">
                                         <tr>
-                                            <th className="px-6 py-4 font-bold border-b border-gray-200 bg-gray-50 sticky left-0 z-10 w-48">Dimension</th>
+                                            <th className="px-2 md:px-6 py-3 md:py-4 font-bold border-b border-gray-200 bg-gray-50 sticky left-0 z-10 min-w-[100px] md:w-48">Dimension</th>
                                             {selectedIds.map(id => {
                                                 const cand = candidates.find(c => c.id === id);
                                                 return (
-                                                    <th key={id} className="px-6 py-4 font-bold border-b border-gray-200 min-w-[250px]">
-                                                        {cand?.name}
-                                                        {id === comparisonResult.winnerId && <span className="ml-2 text-amber-500">★</span>}
+                                                    <th key={id} className="px-2 md:px-6 py-3 md:py-4 font-bold border-b border-gray-200 min-w-[120px] md:min-w-[250px]">
+                                                        <div className="truncate md:truncate-none">
+                                                            {cand?.name}
+                                                            {id === comparisonResult.winnerId && <span className="ml-1 text-amber-500">★</span>}
+                                                        </div>
                                                     </th>
                                                 );
                                             })}
@@ -646,12 +648,14 @@ const Results: React.FC<ResultsProps> = ({ results, candidates, jobConfig, onRes
                                         {/* Added optional chaining here to prevent crashes if dimensions is undefined */}
                                         {comparisonResult?.dimensions?.map((dim, idx) => (
                                             <tr key={idx} className="bg-white hover:bg-gray-50 transition-colors">
-                                                <td className="px-6 py-4 font-semibold text-gray-900 bg-gray-50 sticky left-0 z-10 border-r border-gray-100">
-                                                    {dim.name}
+                                                <td className="px-2 md:px-6 py-3 md:py-4 font-semibold text-gray-900 bg-gray-50 sticky left-0 z-10 border-r border-gray-100 min-w-[100px] md:w-48">
+                                                    <div className="truncate md:truncate-none text-xs md:text-sm">{dim.name}</div>
                                                 </td>
                                                 {selectedIds.map(id => (
-                                                    <td key={id} className="px-6 py-4 text-gray-600 leading-relaxed align-top">
-                                                        {dim.evaluations[id] || (dim.evaluations as any)[Object.keys(dim.evaluations).find((k: string) => k.includes(id) || k === id) || ''] || '-'}
+                                                    <td key={id} className="px-2 md:px-6 py-3 md:py-4 text-gray-600 leading-relaxed align-top min-w-[120px] md:min-w-[250px]">
+                                                        <div className="text-xs md:text-sm line-clamp-3 md:line-clamp-none">
+                                                            {dim.evaluations[id] || (dim.evaluations as any)[Object.keys(dim.evaluations).find((k: string) => k.includes(id) || k === id) || ''] || '-'}
+                                                        </div>
                                                     </td>
                                                 ))}
                                             </tr>

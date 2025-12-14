@@ -372,11 +372,21 @@ const Hero: React.FC<HeroProps> = ({ onStart }) => {
                     viewport={{ once: true }}
                     className="flex flex-col md:flex-row justify-between items-center"
                 >
-                    <div className="mb-8 md:mb-0">
+                    <div className="mb-4 md:mb-0">
                         <p className="text-lg font-bold text-white">TalentScout AI</p>
-                        <p className="text-sm text-gray-400 mt-2">© 2024. All rights reserved.</p>
+                        <p className="text-sm text-gray-400 mt-2">© 2026. All rights reserved.</p>
+                        <p className="text-sm text-gray-400 mt-2">Developed by&nbsp;
+                        <motion.a 
+                            href="https://maazin.vercel.app/" 
+                            whileHover={{ color: "#f7911d" }}
+                            className="text-sm text-gray-400 hover:text-orange-500 transition-colors"
+                        >
+                            Mhmd Maazin
+                        </motion.a>
+                        </p>
+
                     </div>
-                    <div className="flex gap-8">
+                    {/* <div className="flex gap-8">
                         <motion.a 
                             href="#" 
                             whileHover={{ color: "#f7911d" }}
@@ -398,7 +408,7 @@ const Hero: React.FC<HeroProps> = ({ onStart }) => {
                         >
                             Contact Support
                         </motion.a>
-                    </div>
+                    </div> */}
                 </motion.div>
             </div>
         </footer>
