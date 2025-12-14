@@ -48,11 +48,11 @@ export const analyzeCandidates = async (
   // Prepare contents. We can mix text and images (multimodal).
   const parts: any[] = [];
 
-  // 1. Add Job Context
+  // 1. Add Job Context with enhanced evaluation criteria
   parts.push({
     text: `
-      Role: Recruiter AI
-      Task: Analyze the following resumes against the job description.
+      Role: Expert Technical Recruiter
+      Task: Analyze the following resumes against the job description with precision and depth.
       
       JOB TITLE: ${jobConfig.title}
       DESCRIPTION: ${jobConfig.description}
@@ -64,12 +64,36 @@ export const analyzeCandidates = async (
       - Experience Importance: ${jobConfig.weights.experience}%
       - Overall Fit/Reasoning Importance: ${jobConfig.weights.fit}%
 
-      INSTRUCTIONS:
-      - Evaluate each candidate strictly based on the job requirements and the scoring weights provided.
-      - If the resume is an image, carefully read all visible text (OCR) to understand the candidate's profile.
-      - Extract the candidate's name.
-      - Assign a score (0-100). 
-      - Be critical. 100 means a perfect match.
+      DETAILED EVALUATION CRITERIA:
+      
+      1. SKILLS MATCH (${jobConfig.weights.skills}%):
+         - Count exact matches of required skills
+         - Evaluate depth of expertise (years of experience with each skill)
+         - Consider transferable skills and related technologies
+         - Penalize missing critical skills
+         - Score: (Matched Skills / Total Required Skills) * 100, adjusted for depth
+      
+      2. EXPERIENCE (${jobConfig.weights.experience}%):
+         - Verify minimum years requirement is met
+         - Assess relevance of past roles to current position
+         - Evaluate career progression and growth trajectory
+         - Consider industry experience alignment
+         - Score: (Years in relevant roles / Required years) * 100, adjusted for relevance
+      
+      3. OVERALL FIT (${jobConfig.weights.fit}%):
+         - Cultural and team fit indicators
+         - Problem-solving approach demonstrated in past projects
+         - Leadership or collaboration experience
+         - Certifications and continuous learning
+         - Score: Subjective assessment based on resume quality and alignment
+
+      SCORING INSTRUCTIONS:
+      - Calculate weighted score: (Skills_Score * ${jobConfig.weights.skills} + Experience_Score * ${jobConfig.weights.experience} + Fit_Score * ${jobConfig.weights.fit}) / 100
+      - Be precise and critical. 100 = perfect match, 0 = no match
+      - Provide specific reasoning for scores
+      - If resume is an image, use OCR to extract all text accurately
+      - Extract the candidate's name from the resume
+      - List top 3 strengths and top 3 weaknesses with specific examples
       - Return the result in JSON format matching the schema.
     `
   });
@@ -111,8 +135,25 @@ export const analyzeCandidates = async (
       config: {
         responseMimeType: "application/json",
         responseSchema: resultSchema,
-        temperature: 0.2, // Low temperature for consistent ranking
-        systemInstruction: "You are a professional technical recruiter. You are objective, harsh, and precise. You are capable of reading text from images (Optical Character Recognition) with high accuracy."
+        temperature: 0.1, // Very low temperature for consistent, precise ranking
+        systemInstruction: `You are an expert technical recruiter with 15+ years of experience. Your role is to provide accurate, data-driven candidate assessments.
+
+CORE PRINCIPLES:
+- Be objective and evidence-based. Only score based on what's explicitly stated in the resume.
+- Be precise with scoring. Differentiate between candidates clearly.
+- Be thorough in OCR. If resume is an image, extract ALL visible text accurately.
+- Be critical but fair. A score of 100 is rare and only for near-perfect matches.
+- Be specific in feedback. Provide concrete examples from the resume for each pro and con.
+
+SCORING PHILOSOPHY:
+- 90-100: Exceptional match, exceeds requirements
+- 80-89: Strong match, meets all key requirements
+- 70-79: Good match, meets most requirements with minor gaps
+- 60-69: Acceptable match, meets core requirements but has notable gaps
+- 50-59: Moderate match, meets some requirements but significant gaps
+- Below 50: Poor match, missing critical requirements
+
+Always apply the provided weights consistently across all candidates.`
       }
     });
 
@@ -143,14 +184,27 @@ export const generateInterviewQuestions = async (
     Role: ${jobTitle}
     Identified Weaknesses/Gaps: ${cons.join(", ")}
 
-    Task: Generate 5 specific, technical, and behavioral interview questions that directly probe these weaknesses. 
-    Make them challenging but professional.
-    Return as a raw list of strings, one per line.
+    Task: Generate 5-7 targeted interview questions that:
+    1. Directly address each identified weakness or gap
+    2. Are specific and technical (not generic)
+    3. Probe for concrete examples and past experience
+    4. Assess problem-solving approach and learning ability
+    5. Are professional but challenging
+    
+    For each weakness, create a question that:
+    - Asks for specific examples from past projects
+    - Explores how they would handle similar scenarios
+    - Tests their knowledge depth in that area
+    
+    Format: Return as a numbered list (1. Question, 2. Question, etc.)
   `;
 
   const response = await ai.models.generateContent({
     model: MODEL_NAME,
-    contents: prompt
+    contents: prompt,
+    config: {
+      temperature: 0.3 // Slightly higher for more creative questions
+    }
   });
 
   return response.text || "Could not generate questions.";
@@ -284,12 +338,26 @@ export const compareCandidates = async (
   
   parts.push({
     text: `
-      Task: Compare these candidates for the role: ${jobConfig.title}.
+      Task: Perform a detailed side-by-side comparison of these candidates for the role: ${jobConfig.title}.
       Required Skills: ${jobConfig.requiredSkills.join(", ")}
+      Min Experience: ${jobConfig.experienceLevel} years
       
-      Create a comparison matrix on 4 dimensions: "Technical Skills", "Relevant Experience", "Education/Certifications", "Overall Fit".
-      For each dimension, provide a brief evaluation for each candidate relative to each other.
-      Pick a winner.
+      COMPARISON DIMENSIONS (evaluate each thoroughly):
+      1. "Technical Skills" - Depth and breadth of required technical skills, proficiency levels
+      2. "Relevant Experience" - Years in similar roles, industry experience, project complexity
+      3. "Education/Certifications" - Degrees, certifications, continuous learning, training
+      4. "Overall Fit" - Communication skills, problem-solving approach, team fit, growth potential
+      
+      For each dimension:
+      - Provide specific, comparative assessments for each candidate
+      - Reference concrete examples from their resumes
+      - Clearly state who is stronger and why
+      - Be precise and differentiate between candidates
+      
+      Winner Selection:
+      - Choose the candidate who best matches the role requirements
+      - Provide detailed reasoning considering all dimensions
+      - Explain trade-offs if applicable
     `
   });
 

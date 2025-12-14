@@ -102,11 +102,11 @@ const App: React.FC = () => {
             </div>
           </div>
         ) : (
-          <div className="absolute inset-0 z-10 flex items-center justify-between px-4 md:px-8 py-4 rounded-full gap-2 md:gap-8">
+          <div className="absolute inset-0 z-10 flex items-center justify-between px-4 md:px-8 py-2 rounded-full gap-2 md:gap-8">
             <div className="cursor-pointer hover:opacity-80 transition-opacity" onClick={() => handleReset()}>
               <img src="/Assets/Talentscout AI logo.png" alt="TalentScout AI" className="h-20 md:h-28 w-auto object-contain" />
             </div>
-            <span className="text-xs font-semibold text-orange-600 bg-orange-50 px-4 py-2 rounded-full border border-orange-200 shadow-sm">
+            <span className="text-xs font-semibold text-orange-600 bg-orange-50 px-4 py-2 rounded-full border border-orange-200 shadow-sm hidden md:block">
               ⚡ Artificial Intelligence (AI) Active
             </span>
           </div>

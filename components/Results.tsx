@@ -599,7 +599,7 @@ const Results: React.FC<ResultsProps> = ({ results, candidates, jobConfig, onRes
                 className="bg-slate-800 rounded-2xl shadow-2xl max-w-5xl w-full max-h-[90vh] overflow-hidden flex flex-col border border-slate-700"
             >
                 <div className="p-6 border-b border-slate-700 flex justify-between items-center bg-slate-800/50">
-                    <h3 className="text-xl font-bold text-gray-900 flex items-center gap-2">
+                    <h3 className="text-xl font-bold text-slate-200 flex items-center gap-2">
                         <span>⚔️</span> Candidate Showdown
                     </h3>
                     <button onClick={() => setIsComparing(false)} className="text-gray-500 hover:text-gray-700 p-2 rounded-full hover:bg-gray-200">✕</button>
@@ -609,14 +609,14 @@ const Results: React.FC<ResultsProps> = ({ results, candidates, jobConfig, onRes
                     {!comparisonResult ? (
                         <div className="flex flex-col items-center justify-center h-64 space-y-4">
                              <div className="w-16 h-16 border-4 border-indigo-200 border-t-indigo-600 rounded-full animate-spin"></div>
-                             <p className="text-gray-500 font-medium">Gemini is analyzing differences...</p>
+                             <p className="text-gray-500 font-medium">AI is analyzing differences...</p>
                         </div>
                     ) : (
                         <div className="space-y-8">
-                            {/* Winner Banner */}
-                            <div className="bg-gradient-to-r from-orange-600 to-orange-500 border border-orange-400 rounded-xl p-6 flex flex-col md:flex-row gap-6 items-center">
+                           {/* Winner Banner */}
+                            <div className="bg-gradient-to-r from-yellow-50 to-amber-50 border border-amber-100 rounded-xl p-6 flex flex-col md:flex-row gap-6 items-center">
                                 <div className="text-6xl">🏆</div>
-                                <div className="flex-1 text-center md:text-left text-white">
+                                <div className="flex-1 text-center md:text-left">
                                     <div className="text-amber-800 font-bold uppercase tracking-wider text-xs mb-1">Recommended Winner</div>
                                     <h2 className="text-2xl font-bold text-gray-900 mb-2">
                                         {candidates.find(c => c.id === comparisonResult.winnerId)?.name || 'Unknown Candidate'}
@@ -645,8 +645,8 @@ const Results: React.FC<ResultsProps> = ({ results, candidates, jobConfig, onRes
                                     <tbody className="divide-y divide-gray-200">
                                         {/* Added optional chaining here to prevent crashes if dimensions is undefined */}
                                         {comparisonResult?.dimensions?.map((dim, idx) => (
-                                            <tr key={idx} className="bg-slate-800/30 hover:bg-slate-700/30 transition-colors">
-                                                <td className="px-6 py-4 font-semibold text-white bg-slate-800/50 sticky left-0 z-10 border-r border-slate-700">
+                                            <tr key={idx} className="bg-white hover:bg-gray-50 transition-colors">
+                                                <td className="px-6 py-4 font-semibold text-gray-900 bg-gray-50 sticky left-0 z-10 border-r border-gray-100">
                                                     {dim.name}
                                                 </td>
                                                 {selectedIds.map(id => (
