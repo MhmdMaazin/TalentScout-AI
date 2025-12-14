@@ -276,9 +276,9 @@ const Results: React.FC<ResultsProps> = ({ results, candidates, jobConfig, onRes
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ delay: 0.2 }}
-            className="bg-slate-800/50 backdrop-blur-xl rounded-2xl p-6 shadow-lg border border-slate-700"
+            className="bg-white rounded-2xl p-6 shadow-sm border border-gray-100"
           >
-            <h3 className="text-lg font-semibold text-white mb-6">Candidate Comparison</h3>
+            <h3 className="text-lg font-semibold text-gray-900 mb-6">Candidate Comparison</h3>
             <div className="h-[300px] w-full">
               <ResponsiveContainer width="100%" height="100%">
                 <BarChart data={sortedResults} layout="vertical" margin={{ left: 40, right: 40 }}>

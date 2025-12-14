@@ -75,6 +75,10 @@ export const analyzeCandidates = async (
       
       2. EXPERIENCE (${jobConfig.weights.experience}%):
          - Verify minimum years requirement is met
+         - IMPORTANT: When calculating total years of experience:
+           * For positions marked as "Present" or "Current": Calculate from start date to TODAY (${new Date().toISOString().split('T')[0]})
+           * For past positions: Calculate from end date minus start date
+           * Sum all relevant experience periods
          - Assess relevance of past roles to current position
          - Evaluate career progression and growth trajectory
          - Consider industry experience alignment
@@ -94,6 +98,7 @@ export const analyzeCandidates = async (
       - If resume is an image, use OCR to extract all text accurately
       - Extract the candidate's name from the resume
       - List top 3 strengths and top 3 weaknesses with specific examples
+      - CRITICAL: When evaluating experience, always calculate "Present" positions as ongoing until today
       - Return the result in JSON format matching the schema.
     `
   });
@@ -144,6 +149,13 @@ CORE PRINCIPLES:
 - Be thorough in OCR. If resume is an image, extract ALL visible text accurately.
 - Be critical but fair. A score of 100 is rare and only for near-perfect matches.
 - Be specific in feedback. Provide concrete examples from the resume for each pro and con.
+
+EXPERIENCE CALCULATION (CRITICAL):
+- When a position shows "Present", "Current", "Ongoing", or similar: Calculate years from start date to TODAY
+- Today's date is: ${new Date().toISOString().split('T')[0]}
+- For past positions: Calculate end date minus start date
+- Always sum ALL relevant experience periods to get total years
+- Example: If someone started Jan 2020 and it says "Present", they have ~${Math.floor((new Date().getTime() - new Date('2020-01-01').getTime()) / (1000 * 60 * 60 * 24 * 365.25))} years of experience
 
 SCORING PHILOSOPHY:
 - 90-100: Exceptional match, exceeds requirements
@@ -341,10 +353,16 @@ export const compareCandidates = async (
       Task: Perform a detailed side-by-side comparison of these candidates for the role: ${jobConfig.title}.
       Required Skills: ${jobConfig.requiredSkills.join(", ")}
       Min Experience: ${jobConfig.experienceLevel} years
+      Today's Date: ${new Date().toISOString().split('T')[0]}
+      
+      IMPORTANT - EXPERIENCE CALCULATION:
+      - For positions marked "Present", "Current", or similar: Calculate from start date to TODAY (${new Date().toISOString().split('T')[0]})
+      - For past positions: Calculate end date minus start date
+      - Sum all relevant experience to get total years
       
       COMPARISON DIMENSIONS (evaluate each thoroughly):
       1. "Technical Skills" - Depth and breadth of required technical skills, proficiency levels
-      2. "Relevant Experience" - Years in similar roles, industry experience, project complexity
+      2. "Relevant Experience" - Years in similar roles (calculated correctly for "Present" positions), industry experience, project complexity
       3. "Education/Certifications" - Degrees, certifications, continuous learning, training
       4. "Overall Fit" - Communication skills, problem-solving approach, team fit, growth potential
       
