@@ -83,7 +83,7 @@ const App: React.FC = () => {
             <DistortedGlass className="!relative !h-14 md:!h-16 !w-full !block !rounded-full" />
             <div className="absolute inset-0 z-10 flex items-center justify-between px-4 md:px-8 rounded-full gap-2 md:gap-8">
               <div className="cursor-pointer hover:opacity-80 transition-opacity flex-shrink-0" onClick={() => handleReset()}>
-                <img src="/Assets/Talentscout AI logo.png" alt="TalentScout AI" className="h-20 md:h-28 w-auto object-contain" />
+                <img src="/public/Talentscout AI logo.png" alt="TalentScout AI" className="h-20 md:h-28 w-auto object-contain" />
               </div>
               {/* <div className="hidden md:flex items-center gap-8">
                 <a href="#features" className="text-sm font-medium text-white/80 hover:text-white transition-colors">Features</a>
@@ -104,7 +104,7 @@ const App: React.FC = () => {
         ) : (
           <div className="absolute inset-0 z-10 flex items-center justify-between px-4 md:px-8 py-2 rounded-full gap-2 md:gap-8">
             <div className="cursor-pointer hover:opacity-80 transition-opacity" onClick={() => handleReset()}>
-              <img src="/Assets/Talentscout AI logo.png" alt="TalentScout AI" className="h-20 md:h-28 w-auto object-contain" />
+              <img src="/public/Talentscout AI logo.png" alt="TalentScout AI" className="h-20 md:h-28 w-auto object-contain" />
             </div>
             <span className="text-xs font-semibold text-orange-600 bg-orange-50 px-4 py-2 rounded-full border border-orange-200 shadow-sm hidden md:block">
               ⚡ Artificial Intelligence (AI) Active
